@@ -32,4 +32,4 @@ This script is designed to clean up logs, bash history, and sensitive data for t
    ```bash
    sudo ./cleaner.sh
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is open to the public, and freely available for Security Engineers and IT professionals. No license is required for usage, modification, or distribution.
