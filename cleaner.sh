@@ -1,34 +1,25 @@
-#!/bin/bash
+# System Cleanup Script
 
-# Clear shell history
-history -c && history -w
-rm -f ~/.bash_history /var/log/wtmp /var/log/btmp /var/log/lastlog
-unset HISTFILE
+This script is designed to clean up system logs, bash history, and sensitive data. It also removes the `audit` package if installed, and wipes audit logs. The script is designed to be executed directly and will automatically delete itself once the process is completed.
 
-# Vacuum and remove journal logs
-journalctl --vacuum-time=1s
-rm -rf /var/log/journal/* /var/log/audit/*
+## Features:
+- Clears bash history.
+- Removes log files from `/var/log/`.
+- Clears systemd journal logs.
+- Removes audit logs and the `audit` package.
+- Automatically deletes itself after execution.
 
-# Restart journal service
-systemctl restart systemd-journald
+## Instructions
 
-# Reset Bash history settings
-export HISTSIZE=0 HISTFILESIZE=0
-cat /dev/null > ~/.bash_history && history -c && history -w
-shred -u ~/.bash_history
+### Prerequisites:
+- The script requires root privileges to clear system logs and perform cleanup.
+- It is assumed that the system has `auditd` (if present) installed.
 
-# Shred all log files
-find /var/log -type f -exec shred -u {} \;
+### How to Use:
 
-# Restart rsyslog and journald services
-systemctl restart rsyslog
-systemctl restart systemd-journald
+1. Download the script (e.g., `cleaner.sh`) from [GitHub](https://github.com/sumit-kumawat/wipe-traces/blob/main/cleaner.sh).
 
-# Remove auditd package and dependencies
-rpm -qa | grep audit | xargs yum remove -y
+2. Make the script executable:
 
-# Remove the script itself after operation
-rm -- "$0"
-
-# Exit the session
-exit
+   ```bash
+   chmod +x cleaner.sh
