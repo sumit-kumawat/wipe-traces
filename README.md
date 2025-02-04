@@ -26,3 +26,8 @@ This script is designed to clean up system logs, bash history, and sensitive dat
 
    ```bash
    chmod +x cleaner.sh
+
+2. Run the script:
+
+   ```bash
+   sudo ./cleaner.sh
