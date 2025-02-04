@@ -21,3 +21,8 @@ This script is designed to clean up system logs, bash history, and sensitive dat
 
    ```bash
    curl -O https://raw.githubusercontent.com/sumit-kumawat/wipe-traces/main/cleaner.sh
+
+2. Make the script executable:
+
+   ```bash
+   chmod +x cleaner.sh
