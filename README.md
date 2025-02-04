@@ -31,3 +31,5 @@ This script is designed to clean up logs, bash history, and sensitive data for t
 
    ```bash
    sudo ./cleaner.sh
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
