@@ -4,7 +4,7 @@
 # This script clears logs, bash history, and removes audit logs.
 # It also deletes itself after execution.
 
-echo "Starting system cleanup..."
+echo "Starting system logs cleanup..."
 
 # Clear bash history
 history -c && history -w
